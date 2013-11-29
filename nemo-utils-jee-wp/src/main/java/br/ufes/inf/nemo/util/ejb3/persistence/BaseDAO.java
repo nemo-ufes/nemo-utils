@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import br.ufes.inf.nemo.util.ejb3.application.filters.Filter;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.MultiplePersistentObjectsFoundException;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.PersistentObjectNotFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.MultiplePersistentObjectsFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoundException;
 
 /**
  * Base interface for all DAO classes in the system. Instances manipulated by DAOs that implement this interface must

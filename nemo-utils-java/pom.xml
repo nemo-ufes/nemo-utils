@@ -2,6 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>br.ufes.inf.nemo</groupId>
   <artifactId>nemo-utils-java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Nemo Utilities for Java Projects</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 </project>

@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.util.people.persistence.exceptions;
+package br.ufes.inf.nemo.util.ejb3.persistence.exceptions;
 
 import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
 

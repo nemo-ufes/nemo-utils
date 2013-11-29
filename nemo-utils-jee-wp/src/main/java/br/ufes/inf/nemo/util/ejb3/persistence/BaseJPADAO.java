@@ -35,8 +35,8 @@ import br.ufes.inf.nemo.util.ejb3.application.filters.Criterion;
 import br.ufes.inf.nemo.util.ejb3.application.filters.CriterionType;
 import br.ufes.inf.nemo.util.ejb3.application.filters.Filter;
 import br.ufes.inf.nemo.util.ejb3.application.filters.ManyToManyFilter;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.MultiplePersistentObjectsFoundException;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.PersistentObjectNotFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.MultiplePersistentObjectsFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoundException;
 
 /**
  * Base class for DAOs that use JPA 2.0 (Java EE 6) as persistence mechanism.

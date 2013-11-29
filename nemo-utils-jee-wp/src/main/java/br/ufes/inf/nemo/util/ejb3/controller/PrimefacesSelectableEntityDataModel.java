@@ -10,8 +10,8 @@ import org.primefaces.model.SelectableDataModel;
 
 import br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO;
 import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.MultiplePersistentObjectsFoundException;
-import br.ufes.inf.nemo.util.people.persistence.exceptions.PersistentObjectNotFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.MultiplePersistentObjectsFoundException;
+import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoundException;
 
 /**
  * Abstract implementation of a PrimeFaces' lazy data model for persistent entities.
