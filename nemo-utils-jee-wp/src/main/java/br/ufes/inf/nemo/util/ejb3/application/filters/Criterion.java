@@ -23,29 +23,57 @@ public class Criterion implements Serializable {
 	/** The value to be compared to in case of criterions of types equals, like, etc. */
 	protected Object param;
 
-	/** Constructor  using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the criterion applies.
+	 * @param type
+	 *          The type of criterion: is null, is not null, equals, like, etc.
+	 */
 	public Criterion(String fieldName, CriterionType type) {
 		this.fieldName = fieldName;
 		this.type = type;
 	}
 
-	/** Constructor  using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the criterion applies.
+	 * @param type
+	 *          The type of criterion: is null, is not null, equals, like, etc.
+	 * @param param
+	 *          The value to be compared to in case of criterions of types equals, like, etc.
+	 */
 	public Criterion(String fieldName, CriterionType type, Object param) {
 		this(fieldName, type);
 		this.param = param;
 	}
 
-	/** Getter for fieldName. */
+	/**
+	 * Getter for fieldName.
+	 * 
+	 * @return The name of the field to which the criterion applies.
+	 */
 	public String getFieldName() {
 		return fieldName;
 	}
 
-	/** Getter for type. */
+	/**
+	 * Getter for type.
+	 * 
+	 * @return The type of criterion: is null, is not null, equals, like, etc.
+	 */
 	public CriterionType getType() {
 		return type;
 	}
 
-	/** Getter for param. */
+	/**
+	 * Getter for param.
+	 * 
+	 * @return The value to be compared to in case of criterions of types equals, like, etc.
+	 */
 	public Object getParam() {
 		return param;
 	}

@@ -10,17 +10,17 @@ package br.ufes.inf.nemo.util.ejb3.application;
  */
 public enum CrudOperation {
 	/** Create a new object (INSERT in SQL). */
-	CREATE, 
+	CREATE,
 
 	/** Retrieve an existing object (SELECT in SQL). */
-	RETRIEVE, 
-	
+	RETRIEVE,
+
 	/** Update the attributes of an existing object (UPDATE in SQL). */
-	UPDATE, 
-	
+	UPDATE,
+
 	/** Deletes an entire existing object (DELETE in SQL). */
-	DELETE, 
-	
+	DELETE,
+
 	/** Retrieves many/all existing objects of the class (SELECT in SQL). */
 	LIST;
 }

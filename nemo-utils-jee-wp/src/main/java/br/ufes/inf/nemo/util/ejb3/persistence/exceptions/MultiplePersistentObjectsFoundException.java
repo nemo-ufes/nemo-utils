@@ -17,7 +17,16 @@ public class MultiplePersistentObjectsFoundException extends CheckedQueryExcepti
 	/** Serialization id. */
 	private static final long serialVersionUID = 1L;
 
-	/** Constructor. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param cause
+	 *          The cause for this exception.
+	 * @param entityClass
+	 *          The persistent query that was queried when the exception occurred.
+	 * @param params
+	 *          The parameters used in the query that caused the exception.
+	 */
 	public MultiplePersistentObjectsFoundException(Throwable cause, Class<? extends PersistentObject> entityClass, Object ... params) {
 		super(cause, entityClass, params);
 	}

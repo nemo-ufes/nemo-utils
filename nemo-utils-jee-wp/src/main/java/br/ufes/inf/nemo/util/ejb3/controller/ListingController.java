@@ -80,17 +80,29 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 	/** Internal control: a map to locate the filter given its field name. */
 	protected Map<String, Filter<?>> filtersMap = new TreeMap<String, Filter<?>>();
 
-	/** Getter for firstEntityIndex. */
+	/**
+	 * Getter for firstEntityIndex.
+	 * 
+	 * @return The index of the first entity being displayed.
+	 */
 	public int getFirstEntityIndex() {
 		return firstEntityIndex;
 	}
 
-	/** Getter for lastEntityIndex. */
+	/**
+	 * Getter for lastEntityIndex.
+	 * 
+	 * @return The index of the last entity being displayed.
+	 */
 	public int getLastEntityIndex() {
 		return lastEntityIndex;
 	}
 
-	/** Getter for filters. */
+	/**
+	 * Getter for filters.
+	 * 
+	 * @return The available filters.
+	 */
 	public List<Filter<?>> getFilters() {
 		// Lazily initialize the list of filters.
 		if (filters == null) {
@@ -100,54 +112,95 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 		return filters;
 	}
 
-	/** Getter for filterLabel. */
+	/**
+	 * Getter for filterLabel.
+	 * 
+	 * @return The filter label, what is shown in the web page (when multiple-choice, avoids displaying the id).
+	 */
 	public String getFilterLabel() {
 		return filterLabel;
 	}
 
-	/** Getter for filter. */
+	/**
+	 * Getter for filter.
+	 * 
+	 * @return The currently selected filter.
+	 */
 	public Filter<?> getFilter() {
 		return filter;
 	}
 
-	/** Getter for filtering. */
+	/**
+	 * Getter for filtering.
+	 * 
+	 * @return A flag indicating if filtering is on or not.
+	 */
 	public boolean isFiltering() {
 		return filtering;
 	}
 
-	/** Getter for filterKey. */
+	/**
+	 * Getter for filterKey.
+	 * 
+	 * @return The selected filter's ID.
+	 */
 	public String getFilterKey() {
 		return filterKey;
 	}
 
-	/** Setter for filterKey. */
+	/**
+	 * Setter for filterKey.
+	 * 
+	 * @param filterKey
+	 *          The selected filter's ID.
+	 */
 	public void setFilterKey(String filterKey) {
 		this.filterKey = filterKey;
 	}
 
-	/** Getter for filterParam. */
+	/**
+	 * Getter for filterParam.
+	 * 
+	 * @return The filter parameter.
+	 */
 	public String getFilterParam() {
 		return filterParam;
 	}
 
-	/** Setter for filterParam. */
+	/**
+	 * Setter for filterParam.
+	 * 
+	 * @param filterParam
+	 *          The filter parameter.
+	 */
 	public void setFilterParam(String filterParam) {
 		this.filterParam = filterParam;
 	}
 
-	/** Getter for entityCount. */
+	/**
+	 * Getter for entityCount.
+	 * 
+	 * @return The number of existing entities in the persistence media.
+	 */
 	public long getEntityCount() {
 		return entityCount;
 	}
 
-	/** Getter for entities. */
+	/**
+	 * Getter for entities.
+	 * 
+	 * @return The list of existing entities.
+	 */
 	public List<T> getEntities() {
-		if (entities == null)
-			goFirst();
+		if (entities == null) goFirst();
 		return entities;
 	}
 
-	/** Getter for lazyEntities. */
+	/**
+	 * Getter for lazyEntities.
+	 * 
+	 * @return Primefaces lazy data model for use with a lazy p:dataTable component.
+	 */
 	public LazyDataModel<T> getLazyEntities() {
 		if (lazyEntities == null) {
 			count();
@@ -160,7 +213,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 				 *      java.util.Map)
 				 */
 				@Override
-				public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
+				public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 					firstEntityIndex = first;
 					lastEntityIndex = first + pageSize;
 					retrieveEntities();
@@ -173,7 +226,11 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 		return lazyEntities;
 	}
 
-	/** Getter for selectedEntity. */
+	/**
+	 * Getter for selectedEntity.
+	 * 
+	 * @return The selected entity among the list of existing entities.
+	 */
 	public T getSelectedEntity() {
 		// Forces authorization check at the CRUD service.
 		getListingService();
@@ -181,7 +238,12 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 		return selectedEntity;
 	}
 
-	/** Setter for selectedEntity. */
+	/**
+	 * Setter for selectedEntity.
+	 * 
+	 * @param selectedEntity
+	 *          The selected entity among the list of existing entities.
+	 */
 	public void setSelectedEntity(T selectedEntity) {
 		this.selectedEntity = selectedEntity;
 		logger.log(Level.FINEST, "Entity \"{0}\" has been selected", selectedEntity);
@@ -208,8 +270,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 			if (idx != -1) {
 				pkg = classFullName.substring(0, idx);
 				idx = pkg.lastIndexOf('.');
-				if (idx != -1)
-					pkg = pkg.substring(idx + 1);
+				if (idx != -1) pkg = pkg.substring(idx + 1);
 				pkg = "/" + pkg;
 			}
 
@@ -217,10 +278,8 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 			idx = classFullName.lastIndexOf(".");
 			service = (idx == -1) ? classFullName : classFullName.substring(idx + 1);
 			idx = service.indexOf("Controller");
-			if (idx != -1)
-				service = service.substring(0, idx);
-			if (service.length() > 1)
-				service = Character.toLowerCase(service.charAt(0)) + service.substring(1);
+			if (idx != -1) service = service.substring(0, idx);
+			if (service.length() > 1) service = Character.toLowerCase(service.charAt(0)) + service.substring(1);
 
 			// Builds the view path with the name of the package and class.
 			viewPath = pkg + "/" + service + "/";
@@ -230,8 +289,8 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 	}
 
 	/**
-	 * Provides the listing service class to other methods that need it. This method must be overridden by subclasses, each
-	 * one providing its specific listing service.
+	 * Provides the listing service class to other methods that need it. This method must be overridden by subclasses,
+	 * each one providing its specific listing service.
 	 * 
 	 * @return A service class that complies to the listing specification.
 	 */
@@ -251,8 +310,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 	 */
 	protected void addFilter(Filter<?> filter) {
 		logger.log(Level.INFO, "Adding filter: {0} ({1})", new Object[] { filter.getKey(), filter.getType() });
-		if (this.filter == null)
-			this.filter = filter;
+		if (this.filter == null) this.filter = filter;
 		filtersMap.put(filter.getKey(), filter);
 		filters.add(filter);
 	}
@@ -265,8 +323,8 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 
 		// Checks if there's an active filter.
 		if (filtering)
-			// There is. Count only filtered entities.
-			entityCount = getListingService().countFiltered(filter, filterParam);
+		// There is. Count only filtered entities.
+		entityCount = getListingService().countFiltered(filter, filterParam);
 		else
 		// There's not. Count all entities.
 		entityCount = getListingService().count();
@@ -276,8 +334,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 
 		// Updates the index of the last entity and checks if it has gone over the limit.
 		lastEntityIndex = firstEntityIndex + MAX_DATA_TABLE_ROWS_PER_PAGE;
-		if (lastEntityIndex > entityCount)
-			lastEntityIndex = (int) entityCount;
+		if (lastEntityIndex > entityCount) lastEntityIndex = (int) entityCount;
 	}
 
 	/**
@@ -286,8 +343,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 	 */
 	protected void retrieveEntities() {
 		// Checks if the last entity index is over the number of entities and correct it.
-		if (lastEntityIndex > entityCount)
-			lastEntityIndex = (int) entityCount;
+		if (lastEntityIndex > entityCount) lastEntityIndex = (int) entityCount;
 
 		// Checks if there's an active filter.
 		if (filtering) {
@@ -334,8 +390,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 			firstEntityIndex -= MAX_DATA_TABLE_ROWS_PER_PAGE;
 
 			// Checks if, by any chance, the above shifting took the first entity index too far and correct it.
-			if (firstEntityIndex < 0)
-				firstEntityIndex = 0;
+			if (firstEntityIndex < 0) firstEntityIndex = 0;
 
 			// Always counts the entities in this method, as it can be called via AJAX from the pages. This also sets the last
 			// entity index.
@@ -378,8 +433,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 		count();
 
 		// Checks for the trivial case of no entities.
-		if (entityCount == 0)
-			firstEntityIndex = lastEntityIndex = 0;
+		if (entityCount == 0) firstEntityIndex = lastEntityIndex = 0;
 		else {
 			// Calculates how many entities there are in the last page (the remainder of dividing the count by the max
 			// entities in a page).
@@ -403,8 +457,7 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 	 */
 	public void changeFilter() {
 		// If filtering, cancel it.
-		if (filtering)
-			cancelFilter();
+		if (filtering) cancelFilter();
 
 		// Clears the selection.
 		selectedEntity = null;
@@ -480,10 +533,8 @@ public abstract class ListingController<T extends PersistentObject> extends JSFC
 		count();
 
 		// Checks if the index of the listing should be changed and reload the page.
-		if (firstEntityIndex < 0)
-			goFirst();
-		else if (lastEntityIndex > entityCount)
-			goLast();
+		if (firstEntityIndex < 0) goFirst();
+		else if (lastEntityIndex > entityCount) goLast();
 		else retrieveEntities();
 
 		// Goes to the listing.

@@ -45,12 +45,20 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 	/** Output: the list of entities to delete. */
 	protected SortedSet<T> trashCan = new TreeSet<T>();
 
-	/** Getter for readOnly. */
+	/**
+	 * Getter for readOnly.
+	 * 
+	 * @return <code>true</code> if the data is read-only, <code>false</code> otherwise.
+	 */
 	public boolean isReadOnly() {
 		return readOnly;
 	}
 
-	/** Getter for trashCan, encapsulated in a List so it can be shown in a dataTable. */
+	/**
+	 * Getter for trashCan, encapsulated in a List so it can be shown in a dataTable.
+	 * 
+	 * @return The list of entities to delete.
+	 */
 	public List<T> getTrashCan() {
 		return new ArrayList<T>(trashCan);
 	}
@@ -83,6 +91,8 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 	/**
 	 * Method called by the constructor to initialize the entity and any auxiliary properties. Must be overridden by
 	 * subclasses to implement this behavior.
+	 * 
+	 * @return A blank new entity belonging to the managing class.
 	 */
 	protected abstract T createNewEntity();
 
@@ -129,6 +139,9 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 	/**
 	 * Retrieves an existing entity from the business layer, given its ID. Sets it as the selected entity. This method is
 	 * intended to be used internally.
+	 * 
+	 * @param id
+	 *          Persistent id of the entity to be retrieved.
 	 */
 	public void retrieveExistingEntity(Long id) {
 		// Checks if we're creating a new entity or updating/visualizing an existing one.
@@ -195,13 +208,21 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 		return getViewPath() + "form.xhtml?faces-redirect=" + getFacesRedirect();
 	}
 
-	/** Shortcut to retrieve(null). */
+	/**
+	 * Shortcut to retrieve(null).
+	 * 
+	 * @see br.ufes.inf.nemo.util.ejb3.controller.CrudController#retrieve(Long)
+	 * @return The view path for the input form.
+	 */
 	public String retrieve() {
 		return retrieve(null);
 	}
 
 	/**
 	 * Displays the form with the data of the selected entity. Sets the data as read-only.
+	 * 
+	 * @param id
+	 *          The persistence id of the selected entity that may need to be retrieved.
 	 * 
 	 * @return The view path for the input form.
 	 */
@@ -212,8 +233,7 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 		readOnly = true;
 
 		// Retrieves the existing entity that was selected, if not already done by the JSF component.
-		if (selectedEntity == null)
-			retrieveExistingEntity(id);
+		if (selectedEntity == null) retrieveExistingEntity(id);
 		else {
 			// Asks the CRUD service to fetch any lazy collection that possibly exists.
 			selectedEntity = getCrudService().fetchLazy(selectedEntity);
@@ -224,13 +244,21 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 		return getViewPath() + "form.xhtml?faces-redirect=" + getFacesRedirect();
 	}
 
-	/** Shortcut to update(null). */
+	/**
+	 * Shortcut to update(null).
+	 * 
+	 * @see br.ufes.inf.nemo.util.ejb3.controller.CrudController#update(Long)
+	 * @return The view path for the input form.
+	 */
 	public String update() {
 		return update(null);
 	}
 
 	/**
 	 * Displays the form with the data of the selected entity for updating the entity (leaves it read-write).
+	 * 
+	 * @param id
+	 *          The persistence id of the selected entity that may need to be retrieved.
 	 * 
 	 * @return The view path for the input form.
 	 */
@@ -241,8 +269,7 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 		readOnly = false;
 
 		// Retrieves the existing entity that was selected, if not already done by the JSF component.
-		if (selectedEntity == null)
-			retrieveExistingEntity(id);
+		if (selectedEntity == null) retrieveExistingEntity(id);
 		else {
 			// Asks the CRUD service to fetch any lazy collection that possibly exists.
 			selectedEntity = getCrudService().fetchLazy(selectedEntity);
@@ -283,8 +310,7 @@ public abstract class CrudController<T extends PersistentObject> extends Listing
 				logger.log(Level.WARNING, "Exception while saving " + selectedEntity, crudException.getMessage());
 
 				// Checks if the field name was specified. If it was, attach the message to the form field.
-				if (error.getFieldName() != null)
-					addFieldI18nMessage(getFieldName(error.getFieldName()), getBundleName(), FacesMessage.SEVERITY_ERROR, error.getMessageKey(), error.getMessageParams());
+				if (error.getFieldName() != null) addFieldI18nMessage(getFieldName(error.getFieldName()), getBundleName(), FacesMessage.SEVERITY_ERROR, error.getMessageKey(), error.getMessageParams());
 				else addGlobalI18nMessage(getBundleName(), FacesMessage.SEVERITY_ERROR, error.getMessageKey(), error.getMessageParams());
 			}
 

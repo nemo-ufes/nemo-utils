@@ -13,38 +13,82 @@ import java.util.Map;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Type of the objects that compose the list of options to choose from.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.1
  */
 public interface Filter<T> extends Serializable {
-	/** Getter for the type. */
+	/**
+	 * Getter for type.
+	 * 
+	 * @return The type.
+	 */
 	FilterType getType();
 
-	/** Getter for the key. */
+	/**
+	 * Getter for key.
+	 * 
+	 * @return The key.
+	 */
 	String getKey();
 
-	/** Getter for the label. */
+	/**
+	 * Getter for label.
+	 * 
+	 * @return The label.
+	 */
 	String getLabel();
 
-	/** Getter for the field name. */
+	/**
+	 * Getter for fieldName.
+	 * 
+	 * @return The field name.
+	 */
 	String getFieldName();
 
-	/** Getter for the options. */
+	/**
+	 * Getter for options.
+	 * 
+	 * @return The options.
+	 */
 	List<T> getOptions();
 
-	/** Getter for the option labels. */
+	/**
+	 * Getter for optionsLabels.
+	 * 
+	 * @return The option labels.
+	 */
 	Map<String, String> getOptionsLabels();
 
-	/** Getter for the reversed option labels. */
+	/**
+	 * Getter for reversedOptionsLabels.
+	 * 
+	 * @return The reversed option labels.
+	 */
 	Map<String, String> getReversedOptionsLabels();
 
-	/** Getter for a specific option label. */
+	/**
+	 * Returns an option label given its key.
+	 * 
+	 * @param key
+	 *          The key of the requested option label.
+	 * @return The option label that corresponds to the given key.
+	 */
 	String getOptionLabel(String key);
 
-	/** Getter for the sub-field names. */
+	/**
+	 * Getter for subFieldNames.
+	 * 
+	 * @return The sub-field names.
+	 */
 	String getSubFieldNames();
 
-	/** Getter for the criteria list. */
+	/**
+	 * Getter for criteria.
+	 * 
+	 * @return The criteria list.
+	 */
 	List<Criterion> getCriteria();
 
 	/**
@@ -52,7 +96,7 @@ public interface Filter<T> extends Serializable {
 	 * 
 	 * @param value
 	 *          The string representation of the enum value.
-	 *          
+	 * 
 	 * @return The enum value, or null if the filter is not associated with an enumeration.
 	 * @see br.ufes.inf.nemo.util.ejb3.application.filters.FilterType
 	 */

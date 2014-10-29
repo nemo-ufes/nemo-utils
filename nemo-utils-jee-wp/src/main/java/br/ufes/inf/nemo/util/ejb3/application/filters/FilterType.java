@@ -10,20 +10,20 @@ package br.ufes.inf.nemo.util.ejb3.application.filters;
  */
 public enum FilterType {
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.SimpleFilter */
-	SIMPLE, 
-	
+	SIMPLE,
+
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.LikeFilter */
-	LIKE, 
-	
+	LIKE,
+
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.MultipleChoiceFilter */
-	MULTIPLE_CHOICE, 
-	
+	MULTIPLE_CHOICE,
+
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.ReverseMultipleChoiceFilter */
-	REVERSE_MULTIPLE_CHOICE, 
-	
+	REVERSE_MULTIPLE_CHOICE,
+
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.EnumMultipleChoiceFilter */
-	ENUM_MULTIPLE_CHOICE, 
-	
+	ENUM_MULTIPLE_CHOICE,
+
 	/** @see br.ufes.inf.nemo.util.ejb3.application.filters.ManyToManyFilter */
 	MANY_TO_MANY;
 }

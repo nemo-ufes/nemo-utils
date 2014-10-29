@@ -9,7 +9,8 @@ import java.io.Serializable;
  * event in a separate thread.
  * 
  * This class is part of a solution that is based on a blog post last accessed on September 7th, 2012:
- * http://weblogs.java.net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
+ * http://weblogs.java
+ * .net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
  * 
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0

@@ -12,12 +12,32 @@ public class LikeFilter extends SimpleFilter {
 	/** Serialization id. */
 	private static final long serialVersionUID = 1L;
 
-	/** Constructor from superclass. */
+	/**
+	 * Constructor from superclass.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 */
 	public LikeFilter(String key, String fieldName, String label) {
 		super(key, fieldName, label);
 	}
 
-	/** Constructor from superclass. */
+	/**
+	 * Constructor from superclass.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 */
 	public LikeFilter(String key, String fieldName, String label, Criterion ... criteria) {
 		super(key, fieldName, label, criteria);
 	}

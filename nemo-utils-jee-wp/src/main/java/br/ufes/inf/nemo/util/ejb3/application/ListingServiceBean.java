@@ -10,6 +10,8 @@ import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
 /**
  * TODO: document this type.
  *
+ * @param <T>
+ *          Persistent class that is managed by the service.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0
  */
@@ -47,7 +49,10 @@ public abstract class ListingServiceBean<T extends PersistentObject> implements 
 		return getDAO().retrieveCount();
 	}
 
-	/** @see br.ufes.inf.nemo.util.ejb3.application.ListingService#countFiltered(br.ufes.inf.nemo.util.ejb3.application.filters.Filter, java.lang.String) */
+	/**
+	 * @see br.ufes.inf.nemo.util.ejb3.application.ListingService#countFiltered(br.ufes.inf.nemo.util.ejb3.application.filters.Filter,
+	 *      java.lang.String)
+	 */
 	@Override
 	public long countFiltered(Filter<?> filter, String value) {
 		logger.log(Level.FINER, "Retrieving a filtered object count (filter \"{0}\" with value \"{1}\")...", new Object[] { filter.getKey(), value });
@@ -62,7 +67,10 @@ public abstract class ListingServiceBean<T extends PersistentObject> implements 
 		return entities;
 	}
 
-	/** @see br.ufes.inf.nemo.util.ejb3.application.ListingService#filter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter, java.lang.String, int[]) */
+	/**
+	 * @see br.ufes.inf.nemo.util.ejb3.application.ListingService#filter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter,
+	 *      java.lang.String, int[])
+	 */
 	@Override
 	public List<T> filter(Filter<?> filter, String filterParam, int ... interval) {
 		List<T> entities = getDAO().retrieveSomeWithFilter(filter, filterParam, interval);

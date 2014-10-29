@@ -10,13 +10,16 @@ import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
 /**
  * TODO: document this type.
  *
+ * @param <T>
+ *          Persistent class that is managed by the service.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0
  */
 public interface ListingService<T extends PersistentObject> extends Serializable {
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the DAO associated with this service.
+	 * 
+	 * @return The DAO object associated wiht this service.
 	 */
 	BaseDAO<T> getDAO();
 

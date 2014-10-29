@@ -11,13 +11,13 @@ package br.ufes.inf.nemo.util.ejb3.application.filters;
 public enum CriterionType {
 	/** "field-name is null" criterion. */
 	IS_NULL,
-	
+
 	/** "field-name is not null" criterion. */
 	IS_NOT_NULL,
-	
+
 	/** "field-name = value" criterion. */
 	EQUALS,
-	
+
 	/** "field-name like '%value%'" criterion. */
 	LIKE;
 }

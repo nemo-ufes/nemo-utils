@@ -19,10 +19,12 @@ import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoun
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Persistent class that is managed by the DAO.
+ * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseJPADAO
+ * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.1
- * @see br.ufes.inf.nemo.util.ejb3.persistence.JpaBaseDAO
- * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
  */
 public interface BaseDAO<T extends PersistentObject> extends Serializable {
 	/**
@@ -148,6 +150,6 @@ public interface BaseDAO<T extends PersistentObject> extends Serializable {
 	 * @return The merged object.
 	 */
 	T merge(T object);
-	
+
 	T refresh(T object);
 }

@@ -25,45 +25,88 @@ public class CrudValidationError implements Serializable {
 	/** Message parameters that are inserted in the error message by the controller. */
 	private Object[] messageParams;
 
-	/** Constructor using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param messageKey
+	 *          User-friendly error message key.
+	 * @param messageParams
+	 *          Parameters for user-friendly error message.
+	 */
 	public CrudValidationError(String messageKey, Object[] messageParams) {
 		this.messageKey = messageKey;
 		this.messageParams = messageParams;
 	}
 
-	/** Constructor using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param fieldName
+	 *          Name of the field to which this message is related.
+	 * @param messageKey
+	 *          User-friendly error message key.
+	 * @param messageParams
+	 *          Parameters for user-friendly error message.
+	 */
 	public CrudValidationError(String fieldName, String messageKey, Object[] messageParams) {
 		this.fieldName = fieldName;
 		this.messageKey = messageKey;
 		this.messageParams = messageParams;
 	}
 
-	/** Getter for fieldName. */
+	/**
+	 * Getter for fieldName.
+	 * 
+	 * @return The name of the field to which this message is related.
+	 */
 	public String getFieldName() {
 		return fieldName;
 	}
 
-	/** Setter for fieldName. */
+	/**
+	 * Setter for fieldName.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which this message is related.
+	 */
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
 	}
 
-	/** Getter for messageKey. */
+	/**
+	 * Getter for messageKey.
+	 * 
+	 * @return The user-friendly error message key.
+	 */
 	public String getMessageKey() {
 		return messageKey;
 	}
 
-	/** Setter for messageKey. */
+	/**
+	 * Setter for messageKey.
+	 * 
+	 * @param messageKey
+	 *          The user-friendly error message key.
+	 */
 	public void setMessageKey(String messageKey) {
 		this.messageKey = messageKey;
 	}
 
-	/** Getter for messageParams. */
+	/**
+	 * Getter for messageParams.
+	 * 
+	 * @return The parameters for user-friendly error message.
+	 */
 	public Object[] getMessageParams() {
 		return messageParams;
 	}
 
-	/** Setter for messageParams. */
+	/**
+	 * Setter for messageParams.
+	 * 
+	 * @param messageParams
+	 *          The parameters for user-friendly error message.
+	 */
 	public void setMessageParams(Object[] messageParams) {
 		this.messageParams = messageParams;
 	}

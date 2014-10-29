@@ -20,7 +20,8 @@ import javax.jms.ObjectMessage;
  * annotation.
  * 
  * This class is part of a solution that is based on a blog post last accessed on September 7th, 2012:
- * http://weblogs.java.net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
+ * http://weblogs.java
+ * .net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
  * 
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0
@@ -39,12 +40,10 @@ public class BackgroundEventDispatcher implements MessageListener {
 	@Override
 	public void onMessage(Message message) {
 		// Checks that the message is not null.
-		if (message == null)
-			throw new RuntimeException("Background event dispatcher received null message.");
+		if (message == null) throw new RuntimeException("Background event dispatcher received null message.");
 
 		// Checks that the message sent through JSM contains an object.
-		if (!(message instanceof ObjectMessage))
-			throw new RuntimeException("Background event dispatcher received invalid message type via JMS background event queue: " + message.getClass().getName());
+		if (!(message instanceof ObjectMessage)) throw new RuntimeException("Background event dispatcher received invalid message type via JMS background event queue: " + message.getClass().getName());
 
 		// Obtains the object from the message.
 		ObjectMessage msg = (ObjectMessage) message;
@@ -52,12 +51,10 @@ public class BackgroundEventDispatcher implements MessageListener {
 			Serializable eventObject = msg.getObject();
 
 			// Checks that the object is not null.
-			if (eventObject == null)
-				throw new RuntimeException("Background event dispatcher received null message content.");
+			if (eventObject == null) throw new RuntimeException("Background event dispatcher received null message content.");
 
 			// Checks that the object represents a background event.
-			if (!(eventObject instanceof BackgroundEvent))
-				throw new RuntimeException("Background event dispatcher received invalid message content type (expected a background event): " + eventObject.getClass().getName());
+			if (!(eventObject instanceof BackgroundEvent)) throw new RuntimeException("Background event dispatcher received invalid message content type (expected a background event): " + eventObject.getClass().getName());
 
 			// If everything is OK so far, fires the CDI event to activate its application-specific handling.
 			BackgroundEvent backgroundEvent = (BackgroundEvent) eventObject;

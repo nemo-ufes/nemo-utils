@@ -38,7 +38,12 @@ public abstract class DomainObjectSupport implements DomainObject {
 		return uuid;
 	}
 
-	/** Setter for uuid. */
+	/**
+	 * Setter for uuid.
+	 * 
+	 * @param uuid
+	 *          The Unique Universal Identifier.
+	 */
 	protected void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
@@ -63,7 +68,7 @@ public abstract class DomainObjectSupport implements DomainObject {
 	/**
 	 * Base implementation of compareTo() method that compares two domain objects by UUID to be used by any subclass who
 	 * wish to implement java.util.Comparable in case their criteria for comparison all tie. Notice that this class does
-	 * not implement Comparable<DomainObjectSupport> because otherwise all subclasses wouldn't be able to implement
+	 * not implement Comparable&lt;DomainObjectSupport&gt; because otherwise all subclasses wouldn't be able to implement
 	 * Comparable themselves and, thus, restrict the class of object that can be compared.
 	 * 
 	 * @param o

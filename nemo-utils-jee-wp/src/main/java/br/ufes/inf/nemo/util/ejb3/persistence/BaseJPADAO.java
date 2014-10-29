@@ -49,10 +49,12 @@ import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoun
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
- * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
- * @version 1.1
+ * @param <T>
+ *          Persistent class that is managed by the DAO.
  * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO
  * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
+ * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
+ * @version 1.1
  */
 public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<T> {
 	/** Serialization id. */
@@ -101,8 +103,7 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 	protected void applyOrdering(CriteriaBuilder cb, Root<T> root, CriteriaQuery<T> cq) {
 		// Checks if the order list has been provided and applies it.
 		List<Order> orderList = getOrderList(cb, root);
-		if (orderList != null)
-			cq.orderBy(orderList);
+		if (orderList != null) cq.orderBy(orderList);
 	}
 
 	/**
@@ -156,7 +157,10 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 		return count;
 	}
 
-	/** @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveFilteredCount(br.ufes.inf.nemo.util.ejb3.application.filters.Filter, java.lang.String) */
+	/**
+	 * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveFilteredCount(br.ufes.inf.nemo.util.ejb3.application.filters.Filter,
+	 *      java.lang.String)
+	 */
 	@Override
 	public long retrieveFilteredCount(Filter<?> filter, String value) {
 		// Builds the filtered query.
@@ -191,7 +195,10 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 		return result;
 	}
 
-	/** @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveWithFilter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter, java.lang.String) */
+	/**
+	 * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveWithFilter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter,
+	 *      java.lang.String)
+	 */
 	@Override
 	public List<T> retrieveWithFilter(Filter<?> filter, String value) {
 		logger.log(Level.FINER, "Retrieving all objects of class \"{0}\" using a filter (filter \"{1}\" with value \"{2}\")...", new Object[] { getDomainClass().getName(), filter.getKey(), value });
@@ -230,7 +237,10 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 		return result;
 	}
 
-	/** @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveSomeWithFilter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter, java.lang.String, int[]) */
+	/**
+	 * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveSomeWithFilter(br.ufes.inf.nemo.util.ejb3.application.filters.Filter,
+	 *      java.lang.String, int[])
+	 */
 	@Override
 	public List<T> retrieveSomeWithFilter(Filter<?> filter, String value, int[] interval) {
 		logger.log(Level.FINER, "Retrieving objects of class \"{0}\" in interval [{1}, {2}) using a filter (filter \"{3}\" with value \"{4}\")...", new Object[] { getDomainClass().getName(), interval[0], interval[1], filter.getKey(), value });
@@ -260,9 +270,7 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 		return result;
 	}
 
-	/** @throws MultiplePersistentObjectsFoundException 
-	 * @throws PersistentObjectNotFoundException 
-	 * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveByUuid(java.lang.String) */
+	/** @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO#retrieveByUuid(java.lang.String) */
 	@Override
 	public T retrieveByUuid(String uuid) throws PersistentObjectNotFoundException, MultiplePersistentObjectsFoundException {
 		logger.log(Level.FINER, "Retrieving object of class \"{0}\" with UUID {1}...", new Object[] { getDomainClass().getName(), uuid });
@@ -286,8 +294,7 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 
 		// Uses the Persistence Context to save an object. Checks if it's a new object (INSERT) or an existing one (UPDATE).
 		EntityManager em = getEntityManager();
-		if (object.isPersistent())
-			em.merge(object);
+		if (object.isPersistent()) em.merge(object);
 		else em.persist(object);
 	}
 
@@ -315,11 +322,10 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 	@Override
 	public T refresh(T object) {
 		logger.log(Level.FINER, "Refreshing an object of class {0}: \"{1}\"...", new Object[] { getDomainClass().getName(), object });
-		
+
 		// If the object is not persistent, it cannot be refreshed.
-		if (! object.isPersistent())
-			return object;
-		
+		if (!object.isPersistent()) return object;
+
 		// Otherwise, uses the Persitence Context to re-retrieve the object.
 		EntityManager em = getEntityManager();
 		T result = (T) em.find(getDomainClass(), object.getId());
@@ -624,35 +630,18 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 		return pair.from.get(pair.type.getSingularAttribute(fieldName));
 
 		/*
-		 * Path finalPath = null; 
-		 * 
-		 * // Navigate through the entities using the dots. Joins have to be performed in case of navigation. 
-		 * int idx = fieldName.indexOf('.'); 
-		 * ManagedType entityType = model; 
-		 * From from = root; while (finalPath == null) {
-		 * 	// No more dots, so obtain the singular attribute and the path. 
-		 * 	if (idx == -1) finalPath = from.get(entityType.getSingularAttribute(fieldName)); 
-		 * 
-		 * 	// There are dots. Obtains the first element and iterates to follow the chain. 
-		 * 	else { 
-		 * 		String firstField = fieldName.substring(0, idx); 
-		 * 		SingularAttribute attr = entityType.getSingularAttribute(firstField); 
-		 * 
-		 * 		// Element must be an entity in order to be navigable. 
-		 * 		Type type = attr.getType(); 
-		 * 		if (type.getPersistenceType() != Type.PersistenceType.ENTITY) 
-		 * 			throw new IllegalStateException("Cannot navigate the field \"" + firstField + "\" because it doesn't represent an entity."); 
-		 * 
-		 * 		// Sets the entity type, the join and removes the first entity from the field name for the next iteration. 
-		 * 		from = from.join(attr); 
-		 * 		entityType = (EntityType)type; 
-		 * 		fieldName = fieldName.substring(idx + 1); 
-		 * 		idx = fieldName.indexOf('.'); 
-		 * 	} 
-		 * } 
-		 * 
-		 * // Returns the final path once there was no more navigation required. 
-		 * return finalPath;
+		 * Path finalPath = null; // Navigate through the entities using the dots. Joins have to be performed in case of
+		 * navigation. int idx = fieldName.indexOf('.'); ManagedType entityType = model; From from = root; while (finalPath
+		 * == null) { // No more dots, so obtain the singular attribute and the path. if (idx == -1) finalPath =
+		 * from.get(entityType.getSingularAttribute(fieldName)); // There are dots. Obtains the first element and iterates
+		 * to follow the chain. else { String firstField = fieldName.substring(0, idx); SingularAttribute attr =
+		 * entityType.getSingularAttribute(firstField); // Element must be an entity in order to be navigable. Type type =
+		 * attr.getType(); if (type.getPersistenceType() != Type.PersistenceType.ENTITY) throw new
+		 * IllegalStateException("Cannot navigate the field \"" + firstField +
+		 * "\" because it doesn't represent an entity."); // Sets the entity type, the join and removes the first entity
+		 * from the field name for the next iteration. from = from.join(attr); entityType = (EntityType)type; fieldName =
+		 * fieldName.substring(idx + 1); idx = fieldName.indexOf('.'); } } // Returns the final path once there was no more
+		 * navigation required. return finalPath;
 		 */
 	}
 
@@ -685,8 +674,7 @@ public abstract class BaseJPADAO<T extends PersistentObject> implements BaseDAO<
 
 			// Element must be an entity in order to be navigable.
 			Type type = attr.getType();
-			if (type.getPersistenceType() != Type.PersistenceType.ENTITY)
-				throw new IllegalStateException("Cannot navigate the field \"" + firstField + "\" because it doesn't represent an entity.");
+			if (type.getPersistenceType() != Type.PersistenceType.ENTITY) throw new IllegalStateException("Cannot navigate the field \"" + firstField + "\" because it doesn't represent an entity.");
 
 			// Sets the entity type, the join and removes the first entity from the field name for the next iteration.
 			pair.from = pair.from.join(attr);

@@ -40,7 +40,12 @@ public abstract class PersistentObjectSupport extends DomainObjectSupport implem
 		return id;
 	}
 
-	/** Setter for id. */
+	/**
+	 * Setter for id.
+	 * 
+	 * @param id
+	 *          The identifier attribute (primary-key).
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -51,7 +56,12 @@ public abstract class PersistentObjectSupport extends DomainObjectSupport implem
 		return version;
 	}
 
-	/** Setter for version. */
+	/**
+	 * Setter for version.
+	 * 
+	 * @param version
+	 *          The versioning attribute.
+	 */
 	protected void setVersion(Long version) {
 		this.version = version;
 	}

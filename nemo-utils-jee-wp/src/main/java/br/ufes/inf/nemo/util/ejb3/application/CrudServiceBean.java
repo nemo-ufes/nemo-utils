@@ -17,6 +17,8 @@ import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Persistent class that is managed by the service.
  * @see br.ufes.inf.nemo.util.ejb3.application.CrudService
  * @see br.ufes.inf.nemo.util.ejb3.persistence.BaseDAO
  * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
@@ -84,7 +86,7 @@ public abstract class CrudServiceBean<T extends PersistentObject> extends Listin
 	 */
 	protected CrudException addValidationError(CrudException crudException, String message, String messageKey, Object ... messageParams) {
 		logger.log(Level.FINER, "Adding a validation error with key \"{0}\"...", messageKey);
-		
+
 		if (crudException == null) {
 			crudException = new CrudException(message, messageKey, messageParams);
 		}

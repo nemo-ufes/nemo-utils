@@ -20,6 +20,8 @@ import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Persistent class that is managed by the service.
  * @see br.ufes.inf.nemo.util.ejb3.application.CrudServiceBean
  * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
@@ -33,7 +35,7 @@ public interface CrudService<T extends PersistentObject> extends ListingService<
 	 *          Entity object coming from the presentation layer, containing the data that is going to be sent to the
 	 *          create() method for entity creation.
 	 * 
-	 * @throws Exception
+	 * @throws CrudException
 	 *           In case business constraints aren't followed.
 	 */
 	void validateCreate(T entity) throws CrudException;
@@ -45,7 +47,7 @@ public interface CrudService<T extends PersistentObject> extends ListingService<
 	 *          Entity object coming from the presentation layer, containing the ID of the existing entity and the data,
 	 *          both of which are going to be sent to the update() method for entity update.
 	 * 
-	 * @throws Exception
+	 * @throws CrudException
 	 *           In case business constraints aren't followed.
 	 */
 	void validateUpdate(T entity) throws CrudException;
@@ -57,7 +59,7 @@ public interface CrudService<T extends PersistentObject> extends ListingService<
 	 *          Entity object coming from the presentation layer, containing the ID of the existing entity that is going
 	 *          to be sent to the delete() method for entity deletion.
 	 * 
-	 * @throws Exception
+	 * @throws CrudException
 	 *           In case business constraints aren't followed.
 	 */
 	void validateDelete(T entity) throws CrudException;

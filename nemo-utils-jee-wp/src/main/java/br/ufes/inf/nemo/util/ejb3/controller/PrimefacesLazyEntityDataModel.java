@@ -14,6 +14,8 @@ import br.ufes.inf.nemo.util.ejb3.persistence.exceptions.PersistentObjectNotFoun
 /**
  * Abstract implementation of a PrimeFaces' lazy data model for persistent entities.
  *
+ * @param <T>
+ *          Type of the objects that populate the data model.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0
  */
@@ -23,11 +25,16 @@ public abstract class PrimefacesLazyEntityDataModel<T extends PersistentObject> 
 
 	/** The logger. */
 	private static final Logger logger = Logger.getLogger(PrimefacesLazyEntityDataModel.class.getCanonicalName());
-	
+
 	/** If not used in a CRUD, the controller should provide the DAO that can access the row data. */
 	private BaseDAO<T> entityDAO;
-	
-	/** Constructor. */
+
+	/**
+	 * Constructor from superclass.
+	 * 
+	 * @param entityDAO
+	 *          The DAO for objects of the type that populate the data model.
+	 */
 	public PrimefacesLazyEntityDataModel(BaseDAO<T> entityDAO) {
 		this.entityDAO = entityDAO;
 	}
@@ -43,7 +50,7 @@ public abstract class PrimefacesLazyEntityDataModel<T extends PersistentObject> 
 	@Override
 	public T getRowData(String rowKey) {
 		logger.log(Level.FINEST, "Obtaining the row data for key \"{0}\" from the data model", rowKey);
-		
+
 		try {
 			return entityDAO.retrieveByUuid(rowKey);
 		}

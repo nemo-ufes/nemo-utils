@@ -31,13 +31,39 @@ public class ManyToManyFilter extends AbstractFilter<Void> {
 	/** Criteria to be applied to the associated entity. */
 	protected List<Criterion> joinedCriteria = new ArrayList<Criterion>();
 
-	/** Constructor from superclass, using fields. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param subFieldNames
+	 *          Fields to filter in the associated entity, separated by a comma (",").
+	 */
 	public ManyToManyFilter(String key, String fieldName, String label, String subFieldNames) {
 		super(key, fieldName, label);
 		this.subFieldNames = subFieldNames;
 	}
 
-	/** Constructor from superclass, using fields. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param subFieldNames
+	 *          Fields to filter in the associated entity, separated by a comma (",").
+	 * @param joinCriteria
+	 *          If <code>true</code>, adds the criteria to the joined entity. Otherwise, adds it normally to the entity.
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 */
 	public ManyToManyFilter(String key, String fieldName, String label, String subFieldNames, boolean joinCriteria, Criterion ... criteria) {
 		super(key, fieldName, label);
 		this.subFieldNames = subFieldNames;
@@ -55,7 +81,22 @@ public class ManyToManyFilter extends AbstractFilter<Void> {
 		}
 	}
 
-	/** Constructor from superclass, using fields. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param subFieldNames
+	 *          Fields to filter in the associated entity, separated by a comma (",").
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 * @param joinedCriteria
+	 *          Criteria to be applied to the associated entity.
+	 */
 	public ManyToManyFilter(String key, String fieldName, String label, String subFieldNames, Criterion[] criteria, Criterion[] joinedCriteria) {
 		super(key, fieldName, label, criteria);
 		this.subFieldNames = subFieldNames;
@@ -75,7 +116,11 @@ public class ManyToManyFilter extends AbstractFilter<Void> {
 		return FilterType.MANY_TO_MANY;
 	}
 
-	/** Getter for joinedCriteria. */
+	/**
+	 * Getter for joinedCriteria.
+	 * 
+	 * @return The criteria to be applied to the associated entity.
+	 */
 	public List<Criterion> getJoinedCriteria() {
 		return joinedCriteria;
 	}

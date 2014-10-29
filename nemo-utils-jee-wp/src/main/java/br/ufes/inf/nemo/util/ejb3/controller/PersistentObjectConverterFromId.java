@@ -18,6 +18,8 @@ import br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Persistent class to/from which the conversion happens.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.1
  * @see br.ufes.inf.nemo.util.ejb3.persistence.PersistentObject
@@ -35,13 +37,21 @@ public class PersistentObjectConverterFromId<T extends PersistentObject> impleme
 	/** The persistent class being handled by this converter. */
 	private Class<T> persistentClass;
 
-	/** Constructor. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param dao
+	 *          The DAO used to retrieve objects given their IDs.
+	 */
 	public PersistentObjectConverterFromId(BaseDAO<T> dao) {
 		this.dao = dao;
 		persistentClass = dao.getDomainClass();
 	}
 
-	/** @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String) */
+	/**
+	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+	 *      java.lang.String)
+	 */
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		T entity = null;
@@ -65,7 +75,10 @@ public class PersistentObjectConverterFromId<T extends PersistentObject> impleme
 		return entity;
 	}
 
-	/** @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object) */
+	/**
+	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+	 *      java.lang.Object)
+	 */
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		logger.log(Level.FINEST, "Trying to convert an instance of {0}: {1}", new Object[] { persistentClass.getSimpleName(), value });
@@ -76,8 +89,7 @@ public class PersistentObjectConverterFromId<T extends PersistentObject> impleme
 			T entity = (T) value;
 
 			// Checks for null id and returns the id converted to string.
-			if (entity.getId() != null)
-				return entity.getId().toString();
+			if (entity.getId() != null) return entity.getId().toString();
 		}
 
 		// If it doesn't pass one of the previous checks, return an empty string.

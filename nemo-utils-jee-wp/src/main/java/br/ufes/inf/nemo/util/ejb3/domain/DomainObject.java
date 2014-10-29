@@ -16,9 +16,9 @@ import java.io.Serializable;
  * 
  * The solution proposed by this class is the utilization of an Universal Unique Identifier (UUID). This interface
  * provides the methods to obtain the UUID. There is a standard implementation for this interface: DomainObjectSupport.
- * It's based on Jason Carreira's idea, explained in <a
- * href="http://jroller.com/jcarreira/date/20040504#hibernate_null_unsaved_value_and">here</a> and <a
- * href="http://www.jroller.com/jcarreira/entry/overcoming_the_hashcode_object_identity>here</a>.
+ * It's based on Jason Carreira's idea, explained in
+ * http://www.jroller.com/jcarreira/date/20040504#hibernate_null_unsaved_value_and and
+ * http://www.jroller.com/jcarreira/entry/overcoming_the_hashcode_object_identity.
  * 
  * This is just the interface. The implementation is provided in the abstract class DomainObjectSupport.
  * 

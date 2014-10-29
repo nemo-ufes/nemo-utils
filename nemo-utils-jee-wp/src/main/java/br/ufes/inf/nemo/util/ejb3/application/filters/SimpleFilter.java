@@ -15,12 +15,32 @@ public class SimpleFilter extends AbstractFilter<Void> {
 	/** Serialization id. */
 	private static final long serialVersionUID = 1L;
 
-	/** Constructor. */
+	/**
+	 * Constructor from superclass.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 */
 	public SimpleFilter(String key, String fieldName, String label) {
 		super(key, fieldName, label);
 	}
 
-	/** Constructor. */
+	/**
+	 * Constructor from superclass.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 */
 	public SimpleFilter(String key, String fieldName, String label, Criterion ... criteria) {
 		super(key, fieldName, label, criteria);
 	}

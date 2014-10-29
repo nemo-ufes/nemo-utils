@@ -43,11 +43,11 @@ public class ResourceUtil {
 	 */
 	public static File getResourceAsFile(String name) {
 		String resource = getResourceAsString(name);
-		
+
 		// Checks if the URL starts with vfs:/ and replace it with file:/
-		if (resource.startsWith("vfs:/"));
-			resource.replace("vfs:/", "file:/");
-		
+		if (resource.startsWith("vfs:/")) ;
+		resource.replace("vfs:/", "file:/");
+
 		return (resource == null) ? null : new File(resource);
 	}
 

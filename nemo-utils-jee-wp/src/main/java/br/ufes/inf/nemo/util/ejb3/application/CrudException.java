@@ -26,13 +26,33 @@ public class CrudException extends Exception implements Iterable<CrudValidationE
 	/** Collection of validation errors. */
 	private Collection<CrudValidationError> validationErrors = new HashSet<CrudValidationError>();
 
-	/** Constructor from superclass that adds a global validation message. */
+	/**
+	 * Constructor from superclass that adds a global validation message.
+	 * 
+	 * @param message
+	 *          Exception message (passed on to superclass).
+	 * @param messageKey
+	 *          User-friendly error message key.
+	 * @param messageParams
+	 *          Parameters for user-friendly error message.
+	 */
 	public CrudException(String message, String messageKey, Object[] messageParams) {
 		super(message);
 		addValidationError(messageKey, messageParams);
 	}
 
-	/** Constructor from superclass that adds a validation message to a specific field. */
+	/**
+	 * Constructor from superclass that adds a validation message to a specific field.
+	 * 
+	 * @param message
+	 *          Exception message (passed on to superclass).
+	 * @param fieldName
+	 *          Name of the field to which this message is related.
+	 * @param messageKey
+	 *          User-friendly error message key.
+	 * @param messageParams
+	 *          Parameters for user-friendly error message.
+	 */
 	public CrudException(String message, String fieldName, String messageKey, Object[] messageParams) {
 		super(message);
 		addValidationError(fieldName, messageKey, messageParams);

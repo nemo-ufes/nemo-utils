@@ -21,7 +21,8 @@ import javax.jms.Session;
  * a JMS queue for a message-driven bean to handle in a separate thread.
  * 
  * This class is part of a solution that is based on a blog post last accessed on September 7th, 2012:
- * http://weblogs.java.net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
+ * http://weblogs.java
+ * .net/blog/jjviana/archive/2010/04/14/decoupling-event-producers-and-event-consumers-java-ee-6-using-cdi-a
  * 
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.0
@@ -75,8 +76,7 @@ public class BackgroundEventSender {
 	public void destroy() {
 		try {
 			logger.log(Level.FINE, "Disposing the background event sender.");
-			if (connection != null)
-				connection.close();
+			if (connection != null) connection.close();
 		}
 		catch (Exception e) {
 			logger.log(Level.SEVERE, "Caught exception while trying to dispose the background event sender. An investigation on the reasons for this error is recommended.", e);

@@ -11,6 +11,7 @@ import java.util.Map;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T> Type of the objects that compose the list of options to choose from.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.1
  */
@@ -30,14 +31,34 @@ public abstract class AbstractFilter<T> implements Filter<T>, Comparable<Abstrac
 	/** The criteria to be applied to the filter query. */
 	protected List<Criterion> criteria = new ArrayList<Criterion>();
 
-	/** Constructor using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 */
 	public AbstractFilter(String key, String fieldName, String label) {
 		this.key = key;
 		this.fieldName = fieldName;
 		this.label = label;
 	}
 
-	/** Constructor using fields. */
+	/**
+	 * Constructor using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 */
 	public AbstractFilter(String key, String fieldName, String label, Criterion ... criteria) {
 		this(key, fieldName, label);
 		this.criteria.addAll(Arrays.asList(criteria));

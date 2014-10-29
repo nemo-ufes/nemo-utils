@@ -27,11 +27,11 @@ public abstract class JSFController implements Serializable {
 
 	/** The logger. */
 	private static final Logger logger = Logger.getLogger(JSFController.class.getCanonicalName());
-	
+
 	/** Maximum number of data table rows to show per page by default. */
 	protected static final int MAX_DATA_TABLE_ROWS_PER_PAGE = 10;
-	
-	/** TODO: document this field. */
+
+	/** Default refresh rate for JSF polling components. */
 	protected static final int DEFAULT_REFRESH_RATE = 2;
 
 	/** The name of the message bundle variable to be used in i18n messages. */
@@ -39,19 +39,21 @@ public abstract class JSFController implements Serializable {
 
 	/** The resource bundle prefix for messages. */
 	protected String bundlePrefix;
-	
+
 	/**
-	 * Informs to other methods (and web pages) what is the maximum number of rows to be displayed in a data page. This method exists so it can be overridden by subclasses if desired.
+	 * Informs to other methods (and web pages) what is the maximum number of rows to be displayed in a data page. This
+	 * method exists so it can be overridden by subclasses if desired.
 	 * 
 	 * @return The maximum number of rows to be displayed in a data table at a time.
 	 */
 	public int getMaxDataTableRowsPerPage() {
 		return MAX_DATA_TABLE_ROWS_PER_PAGE;
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the refresh rate for polling components under this controller.
+	 * 
+	 * @return The refresh rate value.
 	 */
 	public int getRefreshRate() {
 		return DEFAULT_REFRESH_RATE;
@@ -77,50 +79,55 @@ public abstract class JSFController implements Serializable {
 		return MAX_DATA_TABLE_ROWS_PER_PAGE * 2;
 	}
 
-	
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the current JSF context instance.
+	 * 
+	 * @return The FacesContext object associated with the current request.
 	 */
 	protected FacesContext getCurrentInstance() {
 		return FacesContext.getCurrentInstance();
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the current JSF external context.
+	 * 
+	 * @return The ExternalContext object associated with the current request.
 	 */
 	protected ExternalContext getExternalContext() {
 		return getCurrentInstance().getExternalContext();
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the current JSF EL context.
+	 * 
+	 * @return The ELContext object associated with the current request.
 	 */
 	protected ELContext getELContext() {
 		return getCurrentInstance().getELContext();
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the JSF Flash object.
+	 * 
+	 * @return The Flash object associated with the current request.
 	 */
 	protected Flash getFlash() {
 		return getExternalContext().getFlash();
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the JSF Application.
+	 * 
+	 * @return The Application object associated with the current request.
 	 */
 	protected Application getApplication() {
 		return getCurrentInstance().getApplication();
 	}
-	
+
 	/**
-	 * TODO: document this method.
-	 * @return
+	 * Obtains the JSF Expression Factory.
+	 * 
+	 * @return The ExpressionFactory object associated with the current request.
 	 */
 	protected ExpressionFactory getExpressionFactory() {
 		return getApplication().getExpressionFactory();
@@ -147,13 +154,11 @@ public abstract class JSFController implements Serializable {
 			if (idx != -1) {
 				pkg = classFullName.substring(0, idx);
 				idx = pkg.lastIndexOf('.');
-				if (idx != -1)
-					pkg = pkg.substring(idx + 1);
+				if (idx != -1) pkg = pkg.substring(idx + 1);
 			}
 
 			// Adds the "msgs" prefix and capitalizes the first letter.
-			if (pkg.length() > 1)
-				pkg = "msgs" + Character.toUpperCase(pkg.charAt(0)) + pkg.substring(1);
+			if (pkg.length() > 1) pkg = "msgs" + Character.toUpperCase(pkg.charAt(0)) + pkg.substring(1);
 
 			// The bundle name is the result of the manipulation of the class' package.
 			bundleName = pkg;
@@ -182,10 +187,8 @@ public abstract class JSFController implements Serializable {
 			idx = classFullName.lastIndexOf(".");
 			service = (idx == -1) ? classFullName : classFullName.substring(idx + 1);
 			idx = service.indexOf("Controller");
-			if (idx != -1)
-				service = service.substring(0, idx);
-			if (service.length() > 1)
-				service = Character.toLowerCase(service.charAt(0)) + service.substring(1);
+			if (idx != -1) service = service.substring(0, idx);
+			if (service.length() > 1) service = Character.toLowerCase(service.charAt(0)) + service.substring(1);
 
 			// The bundle prefix is the name of class adapted as before.
 			bundlePrefix = service;
@@ -219,8 +222,7 @@ public abstract class JSFController implements Serializable {
 			String message = bundle.getString(key);
 
 			// If there are params, format the message.
-			if ((params != null) && (params.length > 0))
-				message = MessageFormat.format(message, params);
+			if ((params != null) && (params.length > 0)) message = MessageFormat.format(message, params);
 
 			// Return the message.
 			return message;
@@ -276,6 +278,15 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): global message with specified severity and simple summary and detail messages.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -286,6 +297,13 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): global message with specified severity and including only a simple summary.
+	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
@@ -298,6 +316,13 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): global message without a specific severity and simple summary and detail messages.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -309,6 +334,11 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): global message without a specific severity and including only a simple summary.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+\	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -320,6 +350,19 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): global message with specified severity and parameterized summary and detail messages.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * @param detailParams
+	 *          The parameters for the detail message.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -330,6 +373,15 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): global message with specified severity and including only a parameterized summary.
+	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
@@ -343,6 +395,17 @@ public abstract class JSFController implements Serializable {
 	 * Shortcut to addI18nMessage(): global message without a specific severity and parameterized summary and detail
 	 * messages.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * @param detailParams
+	 *          The parameters for the detail message.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -355,6 +418,13 @@ public abstract class JSFController implements Serializable {
 	 * Shortcut to addI18nMessage(): global message without a specific severity and including only a parameterized
 	 * summary.
 	 * 
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -365,6 +435,17 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): field message with specified severity and simple summary and detail messages.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
@@ -377,6 +458,15 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): field message with specified severity and including only a simple summary.
 	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -387,6 +477,15 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): field message without a specific severity and simple summary and detail messages.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
@@ -399,6 +498,13 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): field message without a specific severity and including only a simple summary.
 	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -410,6 +516,21 @@ public abstract class JSFController implements Serializable {
 	/**
 	 * Shortcut to addI18nMessage(): field message with specified severity and parameterized summary and detail messages.
 	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * @param detailParams
+	 *          The parameters for the detail message.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -420,6 +541,17 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): field message with specified severity and including only a parameterized summary.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param severity
+	 *          The severity of the message (one of the severity levels defined by JSF).
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
@@ -433,6 +565,19 @@ public abstract class JSFController implements Serializable {
 	 * Shortcut to addI18nMessage(): field message without a specific severity and parameterized summary and detail
 	 * messages.
 	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
+	 * @param detailKey
+	 *          The key that identifies the message that will serve as detail in the resource bundle.
+	 * @param detailParams
+	 *          The parameters for the detail message.
+	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,
 	 *      java.lang.Object[])
@@ -443,6 +588,15 @@ public abstract class JSFController implements Serializable {
 
 	/**
 	 * Shortcut to addI18nMessage(): field message without a specific severity and including only a parameterized summary.
+	 * 
+	 * @param fieldName
+	 *          The name of the field to which the message will be attached. If null, the message is global.
+	 * @param bundleName
+	 *          The name of the bundle where to look for the message.
+	 * @param summaryKey
+	 *          The key that identifies the message that will serve as summary in the resource bundle.
+	 * @param summaryParams
+	 *          The parameters for the summary message.
 	 * 
 	 * @see br.ufes.inf.nemo.util.ejb3.controller.JSFController#addI18nMessage(java.lang.String, java.lang.String,
 	 *      javax.faces.application.FacesMessage.Severity, java.lang.String, java.lang.Object[], java.lang.String,

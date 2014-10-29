@@ -13,6 +13,8 @@ import java.util.Map;
  * 
  * <i>This class is part of the Engenho de Software CRUD framework for EJB3 (Java EE 6).</i>
  * 
+ * @param <T>
+ *          Type of the objects that compose the list of options to choose from.
  * @author Vitor E. Silva Souza (vitorsouza@gmail.com)
  * @version 1.1
  */
@@ -29,7 +31,20 @@ public class MultipleChoiceFilter<T> extends AbstractFilter<T> {
 	/** Reversed options labels map, useful for view technologies like JSF. */
 	protected Map<String, String> reversedOptionsLabels;
 
-	/** Constructor from superclass, using fields. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param options
+	 *          List of objects in case of multiple choice filter.
+	 * @param optionsLabels
+	 *          Association between labels and options values.
+	 */
 	public MultipleChoiceFilter(String key, String fieldName, String label, List<T> options, Map<String, String> optionsLabels) {
 		super(key, fieldName, label);
 		this.options = options;
@@ -37,7 +52,22 @@ public class MultipleChoiceFilter<T> extends AbstractFilter<T> {
 		reversedOptionsLabels = reverseMap(optionsLabels);
 	}
 
-	/** Constructor from superclass, using fields. */
+	/**
+	 * Constructor from superclass, using fields.
+	 * 
+	 * @param key
+	 *          The filter type unique identifier.
+	 * @param fieldName
+	 *          The field that will be filtered.
+	 * @param label
+	 *          The label for user interfaces.
+	 * @param options
+	 *          List of objects in case of multiple choice filter.
+	 * @param optionsLabels
+	 *          Association between labels and options values.
+	 * @param criteria
+	 *          The criteria to be applied to the filter query.
+	 */
 	public MultipleChoiceFilter(String key, String fieldName, String label, List<T> options, Map<String, String> optionsLabels, Criterion ... criteria) {
 		super(key, fieldName, label, criteria);
 		this.options = options;
@@ -80,14 +110,13 @@ public class MultipleChoiceFilter<T> extends AbstractFilter<T> {
 	 * 
 	 * @param map
 	 *          The source map.
-	 *          
+	 * 
 	 * @return A reversed version of the source map.
 	 */
 	private Map<String, String> reverseMap(Map<String, String> map) {
 		Map<String, String> reverseMap = new LinkedHashMap<String, String>();
-		if (map != null)
-			for (Map.Entry<String, String> entry : map.entrySet())
-				reverseMap.put(entry.getValue(), entry.getKey());
+		if (map != null) for (Map.Entry<String, String> entry : map.entrySet())
+			reverseMap.put(entry.getValue(), entry.getKey());
 		return reverseMap;
 	}
 }
