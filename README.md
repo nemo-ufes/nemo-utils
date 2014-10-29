@@ -28,7 +28,7 @@ Then you can define one of the projects as a dependency, e.g.:
 ```xml
 <dependency>
 	<groupId>br.ufes.inf.nemo</groupId>
-	<artifactId>nemo-utils-java</artifactId>
-	<version>1.0</version>
+	<artifactId>nemo-utils-jee-wp</artifactId>
+	<version>1.1</version>
 </dependency>
 ```
