@@ -1,3 +1,8 @@
+Archived Project
+================
+
+This project is no longer maintained and has thus been archived. If you're interested in new versions of this library, it has been renamed JButler and the latest version is [hosted and maintained by LabES](https://gitlab.labes.inf.ufes.br/labes/jbutler).
+
 Nemo Utilities
 ==============
 
